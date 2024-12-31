@@ -27,3 +27,8 @@ output "lambda_function_url" {
   description = "Lambda Function URL"
   value       = aws_lambda_function_url.api.function_url
 }
+
+output "lambda_function_url_id" {
+  description = "Lambda Function URL ID"
+  value       = aws_lambda_function_url.api.url_id
+}

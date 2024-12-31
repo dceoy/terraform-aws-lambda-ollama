@@ -46,7 +46,9 @@ Installation
 Usage
 -----
 
-TBD
+```sh
+$ curl https://<url_id>.lambda-url.<region>.on.aws/
+```
 
 Cleanup
 -------
