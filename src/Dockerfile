@@ -22,24 +22,28 @@ RUN \
 # hadolint ignore=SC2102
 RUN \
       --mount=type=cache,target=/root/.cache/pip \
-      CMAKE_ARGS="-DCMAKE_CXX_FLAGS='-mcpu=native' -DCMAKE_C_FLAGS='-mcpu=native'" \
       /var/lang/bin/python -m pip install -U \
-        aws-lambda-powertools awslambdaric llama-cpp-python[server] pip
+        aws-lambda-powertools awslambdaric pip \
+      && CMAKE_ARGS="-DCMAKE_CXX_FLAGS='-mcpu=native' -DCMAKE_C_FLAGS='-mcpu=native' -DGGML_NATIVE=OFF" \
+        /var/lang/bin/python -m pip install -U \
+        llama-cpp-python[server]
 
 
 FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS app
 
-ARG LLM_URL=https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q8_0.gguf
+ARG USER_UID=1001
+ARG USER_GID=1001
+ARG USER_NAME=lambda
+ARG MODEL_GGUF_URL=https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q8_0.gguf
 
 COPY --from=builder /var/lang /var/lang
-COPY --from=builder /opt/model /opt/model
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONIOENCODING=UTF-8
 ENV PIP_NO_CACHE_DIR=off
 ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-ENV LLM_PATH=/opt/model/llm.gguf
+ENV MODEL_GGUF_PATH=/opt/model/llm.gguf
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
@@ -49,11 +53,26 @@ RUN \
       --mount=type=cache,target=/var/cache/dnf,sharing=locked \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y upgrade
+      dnf -y upgrade \
+      && dnf -y install shadow-utils
+
+RUN \
+      /sbin/groupadd --gid "${USER_GID}" "${USER_NAME}" \
+      && /sbin/useradd --uid "${USER_UID}" --gid "${USER_GID}" --shell /bin/bash --create-home "${USER_NAME}"
+
+# hadolint ignore=DL3040
+RUN \
+      --mount=type=cache,target=/var/cache/yum,sharing=locked \
+      --mount=type=cache,target=/var/cache/dnf,sharing=locked \
+      --mount=type=cache,target=/var/lib/yum,sharing=locked \
+      --mount=type=cache,target=/var/lib/dnf,sharing=locked \
+      dnf -y remove shadow-utils
 
 RUN \
       mkdir -p /opt/model \
-      && curl -SL -o "${LLM_PATH}" "${LLM_URL}"
+      && curl -SL -o "${MODEL_GGUF_PATH}" "${MODEL_GGUF_URL}"
+
+USER "${USER_NAME}"
 
 EXPOSE 8080
 
