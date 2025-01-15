@@ -22,11 +22,10 @@ RUN \
 # hadolint ignore=SC2102
 RUN \
       --mount=type=cache,target=/root/.cache/pip \
-      /var/lang/bin/python -m pip install -U \
-        aws-lambda-powertools awslambdaric pip \
+      --mount=type=bind,source=.,target=/mnt/host \
+      /var/lang/bin/python -m pip install -U awslambdaric pip \
       && CMAKE_ARGS="-DCMAKE_CXX_FLAGS='-mcpu=native' -DCMAKE_C_FLAGS='-mcpu=native' -DGGML_NATIVE=OFF" \
-        /var/lang/bin/python -m pip install -U \
-        llama-cpp-python[server]
+        /var/lang/bin/python -m pip install -U -r /mnt/host/requirements.txt
 
 
 FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS app
