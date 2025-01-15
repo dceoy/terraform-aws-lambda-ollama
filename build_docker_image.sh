@@ -12,4 +12,4 @@ AWS_REGION="$(aws configure get region)"
 GIT_SHA="$(git rev-parse --short HEAD)"
 
 REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com" TAG="sha-${GIT_SHA}" \
-  docker buildx bake
+  docker buildx bake --pull --load --provenance=false

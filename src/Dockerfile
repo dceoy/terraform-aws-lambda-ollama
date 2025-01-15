@@ -54,7 +54,7 @@ RUN \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
       dnf -y upgrade \
-      && dnf -y install shadow-utils
+      && dnf -y install libgomp shadow-utils
 
 RUN \
       /sbin/groupadd --gid "${USER_GID}" "${USER_NAME}" \

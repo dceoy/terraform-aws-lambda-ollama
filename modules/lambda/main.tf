@@ -59,13 +59,13 @@ resource "aws_cloudwatch_log_group" "api" {
 resource "aws_lambda_provisioned_concurrency_config" "api" {
   count                             = var.lambda_provisioned_concurrent_executions > -1 ? 1 : 0
   function_name                     = aws_lambda_function.api.function_name
-  qualifier                         = aws_lambda_function.api.version
+  qualifier                         = aws_lambda_function.api.version == "$LATEST" ? null : aws_lambda_function.api.version
   provisioned_concurrent_executions = var.lambda_provisioned_concurrent_executions
 }
 
 resource "aws_lambda_function_url" "api" {
   function_name      = aws_lambda_function.api.function_name
-  qualifier          = aws_lambda_function.api.version
+  qualifier          = aws_lambda_function.api.version == "$LATEST" ? null : aws_lambda_function.api.version
   authorization_type = var.lambda_function_url_authorization_type
   invoke_mode        = var.lambda_function_url_invoke_mode
 }
