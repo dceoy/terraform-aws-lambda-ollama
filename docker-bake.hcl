@@ -10,6 +10,10 @@ variable "PYTHON_VERSION" {
   default = "3.13"
 }
 
+variable "AWS_LAMBDA_ADAPTER_VERSION" {
+  default = "0.9.0"
+}
+
 variable "USER_UID" {
   default = 1001
 }
