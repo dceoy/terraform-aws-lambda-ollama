@@ -1,5 +1,7 @@
 # syntax=docker/dockerfile:1
 ARG PYTHON_VERSION=3.13
+ARG AWS_LAMBDA_ADAPTER_VERSION=0.9.0
+
 FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS builder
 
 ENV PYTHONUNBUFFERED=1
@@ -28,6 +30,9 @@ RUN \
         /var/lang/bin/python -m pip install -U -r /mnt/host/requirements.txt
 
 
+FROM public.ecr.aws/awsguru/aws-lambda-adapter:${AWS_LAMBDA_ADAPTER_VERSION} AS aws-lambda-adapter
+
+
 FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS app
 
 ARG USER_UID=1001
@@ -36,6 +41,7 @@ ARG USER_NAME=lambda
 ARG MODEL_GGUF_URL=https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q8_0.gguf
 
 COPY --from=builder /var/lang /var/lang
+COPY --from=aws-lambda-adapter /lambda-adapter /opt/extensions/lambda-adapter
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
