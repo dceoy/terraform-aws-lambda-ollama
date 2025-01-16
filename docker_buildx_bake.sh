@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Usage:
-#   ./build_docker_image.sh [<image_name>]
+#   ./docker_buildx_bake.sh
 
 set -euox pipefail
 
