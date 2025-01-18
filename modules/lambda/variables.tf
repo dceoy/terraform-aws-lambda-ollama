@@ -189,3 +189,13 @@ variable "lambda_function_url_invoke_mode" {
     error_message = "Lambda function URL invoke mode must be either BUFFERED or RESPONSE_STREAM"
   }
 }
+
+variable "lambda_function_url_cors" {
+  description = "CORS (Cross-Origin Resource Sharing) settings for the Lambda function URL"
+  type        = map(any)
+  default     = {}
+  validation {
+    condition     = alltrue([for k in keys(var.lambda_function_url_cors) : contains(["allow_credentials", "allow_headers", "allow_methods", "allow_origins", "expose_headers", "max_age"], k)])
+    error_message = "Lambda function URL CORS settings allow only allow_credentials, allow_headers, allow_methods, allow_origins, expose_headers, and max_age as keys"
+  }
+}

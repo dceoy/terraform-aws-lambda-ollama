@@ -38,7 +38,7 @@ FROM public.ecr.aws/lambda/python:${PYTHON_VERSION} AS app
 ARG USER_UID=1001
 ARG USER_GID=1001
 ARG USER_NAME=lambda
-ARG MODEL_GGUF_URL=https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q8_0.gguf
+ARG MODEL_GGUF_URL=https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf
 
 COPY --from=builder /var/lang /var/lang
 COPY --from=aws-lambda-adapter /lambda-adapter /opt/extensions/lambda-adapter
@@ -64,14 +64,6 @@ RUN \
 RUN \
       /sbin/groupadd --gid "${USER_GID}" "${USER_NAME}" \
       && /sbin/useradd --uid "${USER_UID}" --gid "${USER_GID}" --shell /bin/bash --create-home "${USER_NAME}"
-
-# hadolint ignore=DL3040
-RUN \
-      --mount=type=cache,target=/var/cache/yum,sharing=locked \
-      --mount=type=cache,target=/var/cache/dnf,sharing=locked \
-      --mount=type=cache,target=/var/lib/yum,sharing=locked \
-      --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y remove shadow-utils
 
 RUN \
       mkdir -p /opt/model \

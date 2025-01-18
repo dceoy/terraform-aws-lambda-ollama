@@ -27,7 +27,7 @@ variable "USER_NAME" {
 }
 
 variable "MODEL_GGUF_URL" {
-  default = "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q8_0.gguf"
+  default = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf"
 }
 
 group "default" {

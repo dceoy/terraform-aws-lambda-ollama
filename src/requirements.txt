@@ -1,9 +1,1 @@
-aws-lambda-powertools >= 3.4.1
-boto3 >= 1.35.99
-llama_cpp_python >= 0.3.6
-uvicorn >= 0.34.0
-fastapi >= 0.115.6
-pydantic-settings >= 2.7.1
-sse-starlette >= 2.2.1
-starlette-context >= 0.3.6
-PyYAML >= 6.0.2
+llama_cpp_python[server] >= 0.3.6

@@ -37,17 +37,17 @@ remote_state {
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-provider "aws" {
-  region = "${local.env_vars.locals.region}"
-  default_tags {
-    tags = {
-      SystemName = "${local.env_vars.locals.system_name}"
-      EnvType    = "${local.env_vars.locals.env_type}"
+  contents  = <<-EOF
+  provider "aws" {
+    region = "${local.env_vars.locals.region}"
+    default_tags {
+      tags = {
+        SystemName = "${local.env_vars.locals.system_name}"
+        EnvType    = "${local.env_vars.locals.env_type}"
+      }
     }
   }
-}
-EOF
+  EOF
 }
 
 catalog {
@@ -92,7 +92,7 @@ inputs = {
   lambda_function_name                        = local.image_name
   lambda_architectures                        = [local.lambda_architecture]
   lambda_memory_size                          = 10240
-  lambda_timeout                              = 3
+  lambda_timeout                              = 900
   lambda_reserved_concurrent_executions       = -1
   lambda_logging_config_log_format            = "JSON"
   lambda_logging_config_application_log_level = "INFO"

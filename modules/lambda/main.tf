@@ -68,6 +68,17 @@ resource "aws_lambda_function_url" "api" {
   qualifier          = aws_lambda_function.api.version == "$LATEST" ? null : aws_lambda_function.api.version
   authorization_type = var.lambda_function_url_authorization_type
   invoke_mode        = var.lambda_function_url_invoke_mode
+  dynamic "cors" {
+    for_each = length(var.lambda_function_url_cors) > 0 ? [true] : []
+    content {
+      allow_credentials = lookup(var.lambda_function_url_cors, "allow_credentials", null)
+      allow_headers     = lookup(var.lambda_function_url_cors, "allow_headers", null)
+      allow_methods     = lookup(var.lambda_function_url_cors, "allow_methods", null)
+      allow_origins     = lookup(var.lambda_function_url_cors, "allow_origins", null)
+      expose_headers    = lookup(var.lambda_function_url_cors, "expose_headers", null)
+      max_age           = lookup(var.lambda_function_url_cors, "max_age", null)
+    }
+  }
 }
 
 resource "aws_iam_role" "api" {
