@@ -27,7 +27,7 @@ variable "USER_NAME" {
 }
 
 variable "MODEL_GGUF_URL" {
-  default = "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf"
+  default = "https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-1.5B-Q8_0.gguf"
 }
 
 group "default" {
