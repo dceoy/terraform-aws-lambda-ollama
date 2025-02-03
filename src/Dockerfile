@@ -19,7 +19,7 @@ RUN \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
       dnf -y upgrade \
-      && dnf -y install g++ gcc
+      && dnf -y install g++ gcc git
 
 # hadolint ignore=SC2102
 RUN \
@@ -77,4 +77,4 @@ HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
   CMD curl -f http://localhost:8080/health || exit 1
 
 ENTRYPOINT ["/var/lang/bin/python", "-m", "llama_cpp.server"]
-CMD ["--model=/opt/model/llm.gguf", "--n_ctx=16192", "--port=8080"]
+CMD ["--model=/opt/model/llm.gguf", "--n_ctx=16192", "--port=8080", "--host=0.0.0.0"]
