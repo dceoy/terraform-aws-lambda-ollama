@@ -6,8 +6,8 @@ variable "TAG" {
   default = "latest"
 }
 
-variable "PYTHON_VERSION" {
-  default = "3.13"
+variable "AWS_LAMBDA_PROVIDED_IMAGE_TAG" {
+  default = "al2023"
 }
 
 variable "AWS_LAMBDA_ADAPTER_VERSION" {
@@ -26,26 +26,27 @@ variable "USER_NAME" {
   default = "lambda"
 }
 
-variable "MODEL_GGUF_URL" {
-  default = "https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-1.5B-Q8_0.gguf"
+variable "OLLAMA_MODEL_NAME" {
+  default = "llama3.2:1b"
 }
 
 group "default" {
-  targets = ["llama-cpp-server"]
+  targets = ["ollama-serve"]
 }
 
-target "llama-cpp-server" {
-  tags       = ["${REGISTRY}/llama-cpp-server:${TAG}"]
+target "ollama-serve" {
+  tags       = ["${REGISTRY}/ollama-serve:${TAG}"]
   context    = "./src"
   dockerfile = "Dockerfile"
   target     = "app"
   platforms  = ["linux/arm64"]
   args = {
-    PYTHON_VERSION = PYTHON_VERSION
-    USER_UID       = USER_UID
-    USER_GID       = USER_GID
-    USER_NAME      = USER_NAME
-    MODEL_GGUF_URL = MODEL_GGUF_URL
+    AWS_LAMBDA_PROVIDED_IMAGE_TAG = AWS_LAMBDA_PROVIDED_IMAGE_TAG
+    AWS_LAMBDA_ADAPTER_VERSION    = AWS_LAMBDA_ADAPTER_VERSION
+    USER_UID                      = USER_UID
+    USER_GID                      = USER_GID
+    USER_NAME                     = USER_NAME
+    OLLAMA_MODEL_NAME             = OLLAMA_MODEL_NAME
   }
   cache_from = ["type=gha"]
   cache_to   = ["type=gha,mode=max"]

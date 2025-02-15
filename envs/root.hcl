@@ -1,5 +1,5 @@
 locals {
-  image_name          = "llama-cpp-server"
+  image_name          = "ollama-serve"
   lambda_architecture = "arm64"
   docker_image_build_platforms = {
     "x86_64" = "linux/amd64"

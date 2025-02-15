@@ -1,9 +1,9 @@
-terraform-aws-lambda-llama-cpp
-==============================
+terraform-aws-lambda-ollama
+===========================
 
-Terraform modules of a Llama.cpp server on AWS Lambda
+Terraform modules of an Ollama server on AWS Lambda
 
-[![CI](https://github.com/dceoy/terraform-aws-lambda-llama-cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/dceoy/terraform-aws-lambda-llama-cpp/actions/workflows/ci.yml)
+[![CI](https://github.com/dceoy/terraform-aws-lambda-ollama/actions/workflows/ci.yml/badge.svg)](https://github.com/dceoy/terraform-aws-lambda-ollama/actions/workflows/ci.yml)
 
 Installation
 ------------
@@ -11,8 +11,8 @@ Installation
 1.  Check out the repository.
 
     ```sh
-    $ git clone https://github.com/dceoy/terraform-aws-lambda-llama-cpp.git
-    $ cd terraform-aws-lambda-llama-cpp
+    $ git clone https://github.com/dceoy/terraform-aws-lambda-ollama.git
+    $ cd terraform-aws-lambda-ollama
     ````
 
 2.  Install [AWS CLI](https://aws.amazon.com/cli/) and set `~/.aws/config` and `~/.aws/credentials`.
