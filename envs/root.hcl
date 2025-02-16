@@ -98,10 +98,10 @@ inputs = {
   lambda_logging_config_application_log_level = "INFO"
   lambda_logging_config_shadow_log_level      = "INFO"
   lambda_ephemeral_storage_size               = 512
+  lambda_environment_variables                = { HOME = "/tmp" }
   lambda_tracing_config_mode                  = "Active"
   lambda_provisioned_concurrent_executions    = -1
   # lambda_image_config_entry_point             = []
   # lambda_image_config_command                 = []
   # lambda_image_config_working_directory       = null
-  # lambda_environment_variables                = {}
 }
