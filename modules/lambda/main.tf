@@ -115,8 +115,8 @@ resource "aws_iam_role_policy_attachments_exclusive" "api" {
   ])
 }
 
-resource "aws_iam_role_policy" "api" {
-  name = "${var.system_name}-${var.env_type}-lambda-execution-iam-role-policy"
+resource "aws_iam_role_policy" "logs" {
+  name = "${var.system_name}-${var.env_type}-lambda-execution-logs-iam-policy"
   role = aws_iam_role.api.id
   policy = jsonencode({
     Version = "2012-10-17"
