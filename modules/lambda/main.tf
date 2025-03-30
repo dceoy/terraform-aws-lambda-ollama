@@ -37,6 +37,14 @@ resource "aws_lambda_function" "api" {
       variables = var.lambda_environment_variables
     }
   }
+  dynamic "vpc_config" {
+    for_each = length(var.lambda_vpc_config_subnet_ids) > 0 && length(var.lambda_vpc_config_security_group_ids) > 0 ? [true] : []
+    content {
+      subnet_ids                  = var.lambda_vpc_config_subnet_ids
+      security_group_ids          = var.lambda_vpc_config_security_group_ids
+      ipv6_allowed_for_dual_stack = var.lambda_vpc_config_ipv6_allowed_for_dual_stack
+    }
+  }
   tags = {
     Name       = local.lambda_function_name
     SystemName = var.system_name

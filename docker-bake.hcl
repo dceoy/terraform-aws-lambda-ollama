@@ -48,6 +48,7 @@ target "ollama-serve" {
     USER_NAME                     = USER_NAME
     OLLAMA_MODEL_NAME             = OLLAMA_MODEL_NAME
   }
+  secret     = []
   cache_from = ["type=gha"]
   cache_to   = ["type=gha,mode=max"]
   pull       = true
