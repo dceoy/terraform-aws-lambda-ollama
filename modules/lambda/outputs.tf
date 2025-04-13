@@ -1,10 +1,10 @@
 output "lambda_function_arn" {
-  description = "Lambda Function ARN"
+  description = "Lambda function ARN"
   value       = aws_lambda_function.api.arn
 }
 
 output "lambda_function_qualified_arn" {
-  description = "Lambda Function qualified ARN"
+  description = "Lambda function qualified ARN"
   value       = aws_lambda_function.api.qualified_arn
 }
 
@@ -24,11 +24,11 @@ output "lambda_cloudwatch_logs_log_group_name" {
 }
 
 output "lambda_function_url" {
-  description = "Lambda Function URL"
+  description = "Lambda function URL"
   value       = aws_lambda_function_url.api.function_url
 }
 
 output "lambda_function_url_id" {
-  description = "Lambda Function URL ID"
+  description = "Lambda function URL ID"
   value       = aws_lambda_function_url.api.url_id
 }
