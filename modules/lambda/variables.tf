@@ -74,6 +74,12 @@ variable "lambda_timeout" {
   default     = 3
 }
 
+variable "lambda_alias_name" {
+  description = "Alias name for the Lambda function"
+  type        = string
+  default     = null
+}
+
 variable "lambda_reserved_concurrent_executions" {
   description = "Lambda reserved concurrent executions"
   type        = number
