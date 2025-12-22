@@ -1,19 +1,17 @@
-terraform-aws-lambda-ollama
-===========================
+# terraform-aws-lambda-ollama
 
 Terraform modules of an Ollama server on AWS Lambda
 
 [![CI](https://github.com/dceoy/terraform-aws-lambda-ollama/actions/workflows/ci.yml/badge.svg)](https://github.com/dceoy/terraform-aws-lambda-ollama/actions/workflows/ci.yml)
 
-Installation
-------------
+## Installation
 
 1.  Check out the repository.
 
     ```sh
     $ git clone https://github.com/dceoy/terraform-aws-lambda-ollama.git
     $ cd terraform-aws-lambda-ollama
-    ````
+    ```
 
 2.  Install [AWS CLI](https://aws.amazon.com/cli/) and set `~/.aws/config` and `~/.aws/credentials`.
 
@@ -43,15 +41,13 @@ Installation
     $ terragrunt run-all apply --working-dir='envs/dev/' --non-interactive
     ```
 
-Usage
------
+## Usage
 
 ```sh
 $ curl https://<url_id>.lambda-url.<region>.on.aws/
 ```
 
-Cleanup
--------
+## Cleanup
 
 ```sh
 $ terragrunt run-all destroy --working-dir='envs/dev/' --non-interactive
