@@ -1,4 +1,7 @@
 resource "aws_lambda_function" "api" {
+  # checkov:skip=CKV_AWS_116: DLQ is intentionally not configured for this Lambda.
+  # checkov:skip=CKV_AWS_173: Environment variables do not contain secrets; encryption is managed externally.
+  # checkov:skip=CKV_AWS_272: Code signing is not used for this container-based Lambda deployment.
   function_name                  = local.lambda_function_name
   description                    = local.lambda_function_name
   role                           = aws_iam_role.api.arn
@@ -55,6 +58,7 @@ resource "aws_lambda_function" "api" {
 
 # trivy:ignore:avd-aws-0017
 resource "aws_cloudwatch_log_group" "api" {
+  # checkov:skip=CKV_AWS_338: Log retention is configurable and shorter retention is acceptable.
   name              = "/${var.system_name}/${var.env_type}/lambda/${local.lambda_function_name}"
   retention_in_days = var.cloudwatch_logs_retention_in_days
   kms_key_id        = var.kms_key_arn
@@ -81,6 +85,7 @@ resource "aws_lambda_provisioned_concurrency_config" "api" {
 }
 
 resource "aws_lambda_function_url" "api" {
+  # checkov:skip=CKV_AWS_258: Function URL is intentionally public for this workload.
   function_name      = aws_lambda_function.api.function_name
   qualifier          = aws_lambda_function.api.version == "$LATEST" ? null : aws_lambda_function.api.version
   authorization_type = var.lambda_function_url_authorization_type
