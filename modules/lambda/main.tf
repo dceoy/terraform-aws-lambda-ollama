@@ -1,3 +1,5 @@
+# X-Ray tracing is configurable and defaults to Active in variables.tf.
+# nosemgrep: terraform.aws.security.aws-lambda-x-ray-tracing-not-active.aws-lambda-x-ray-tracing-not-active
 resource "aws_lambda_function" "api" {
   # checkov:skip=CKV_AWS_116:DLQ is intentionally not configured for this Lambda.
   # checkov:skip=CKV_AWS_173:Environment variables do not contain secrets; encryption is managed externally.
