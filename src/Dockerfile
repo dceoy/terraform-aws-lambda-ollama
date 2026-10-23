@@ -12,8 +12,8 @@ RUN \
       --mount=type=cache,target=/var/cache/dnf,sharing=locked \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y --refresh upgrade \
-      && dnf -y install ca-certificates findutils gzip tar
+      dnf -yq --refresh upgrade \
+      && dnf -yq install ca-certificates findutils gzip tar
 
 # hadolint ignore=SC2102
 RUN \
@@ -51,8 +51,8 @@ RUN \
       --mount=type=cache,target=/var/cache/dnf,sharing=locked \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y --refresh upgrade \
-      && dnf -y install libgomp shadow-utils
+      dnf -yq --refresh upgrade \
+      && dnf -yq install libgomp shadow-utils
 
 RUN \
       /sbin/groupadd --gid "${USER_GID}" "${USER_NAME}" \
