@@ -12,7 +12,7 @@ RUN \
       --mount=type=cache,target=/var/cache/dnf,sharing=locked \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y upgrade \
+      dnf -y --refresh upgrade \
       && dnf -y install ca-certificates findutils gzip tar
 
 # hadolint ignore=SC2102
@@ -51,7 +51,7 @@ RUN \
       --mount=type=cache,target=/var/cache/dnf,sharing=locked \
       --mount=type=cache,target=/var/lib/yum,sharing=locked \
       --mount=type=cache,target=/var/lib/dnf,sharing=locked \
-      dnf -y upgrade \
+      dnf -y --refresh upgrade \
       && dnf -y install libgomp shadow-utils
 
 RUN \
