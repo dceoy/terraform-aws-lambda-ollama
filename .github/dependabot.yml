@@ -25,7 +25,8 @@ updates:
       default-days: 1
   - package-ecosystem: terraform
     directories:
-      - /modules/lambda/
+      - /modules/*
+      - /envs/dev/*
     schedule:
       interval: daily
     open-pull-requests-limit: 10
