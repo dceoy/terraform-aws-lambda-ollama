@@ -25,5 +25,6 @@ inputs = {
 }
 
 terraform {
-  source = "${get_repo_root()}/modules/lambda"
+  source                   = "${get_repo_root()}/modules/lambda"
+  copy_terraform_lock_file = false
 }
